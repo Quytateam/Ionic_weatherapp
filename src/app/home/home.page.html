@@ -1,12 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Weather app </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
@@ -15,6 +13,126 @@
 
   <div id="container">
     <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <p>
+      Start with Ionic
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://ionicframework.com/docs/components"
+        >UI Components</a
+      >
+    </p>
   </div>
+</ion-content> -->
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="main">
+    <span class="city">{{resCurrent?.name}}</span>
+    <span class="date">{{resCurrent?.dt | dayFormatting}}</span>
+
+    <div class="icon">
+      <!-- <img src="../../assets/2x.png" alt="weathericon" /> -->
+      <img
+        src="https://openweathermap.org/img/wn/{{resCurrent?.weather[0].icon}}@2x.png"
+        alt="weathericon"
+      />
+    </div>
+
+    <span class="description">{{resCurrent?.weather[0].main}}</span>
+    <span class="temperature"
+      >{{ (resCurrent?.main.temp / 10) | number: '1.0-0'}}°
+    </span>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="day">{{res?.list[0].dt | day}}</ion-col>
+      <ion-col class="day">{{res?.list[1].dt | day}}</ion-col>
+      <ion-col class="day">{{res?.list[2].dt | day}}</ion-col>
+      <ion-col class="day">{{res?.list[3].dt | day}}</ion-col>
+      <ion-col class="day">{{res?.list[4].dt | day}}</ion-col>
+      <ion-col class="day">{{res?.list[5].dt | day}}</ion-col>
+      <ion-col class="day">{{res?.list[6].dt | day}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[0].weather[0].icon}}@2x.png"
+      /></ion-col>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[1].weather[0].icon}}@2x.png"
+      /></ion-col>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[2].weather[0].icon}}@2x.png"
+      /></ion-col>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[3].weather[0].icon}}@2x.png"
+      /></ion-col>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[4].weather[0].icon}}@2x.png"
+      /></ion-col>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[5].weather[0].icon}}@2x.png"
+      /></ion-col>
+      <ion-col class="icon-sm"
+        ><img
+          src="https://openweathermap.org/img/wn/{{res?.list[6].weather[0].icon}}@2x.png"
+      /></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="hi-sm"
+        >{{(res?.list[0].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[1].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[2].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[3].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[4].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[5].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[6].main.temp_max/10) | number: '1.0-0'}}°c</ion-col
+      >
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="lo-sm"
+        >{{(res?.list[0].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="lo-sm"
+        >{{(res?.list[1].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="lo-sm"
+        >{{(res?.list[2].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="hi-sm"
+        >{{(res?.list[3].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="lo-sm"
+        >{{(res?.list[4].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="lo-sm"
+        >{{(res?.list[5].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+      <ion-col class="lo-sm"
+        >{{(res?.list[6].main.temp_min/10) | number: '1.0-0'}}°c</ion-col
+      >
+    </ion-row>
+  </ion-grid>
 </ion-content>
